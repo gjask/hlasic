@@ -52,7 +52,7 @@ compose(){
 	x2=$( echo $x | cut -c 3 )
 
 	[ -n "$x2" ] && files="$files $samples/${x2}00.mp3"
-	if [ -n "$x1" -a "$x1" -gt 0 ]; then
+	if [ -n "$x1" ] && [ "$x1" -gt 0 ]; then
 		if [ $x1 -eq 1 ]; then
 			echo $files "$samples/1${x0}.mp3"
 			return
