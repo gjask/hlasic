@@ -16,7 +16,7 @@
 first=$( date +%s -d '9:30:00' )	# cas prvniho startu "HH:MM:SS"
 step=30					# rozestup mezi cisly v sekundach
 tts=10					# delka stopy do odstartovani
-speaker='mplayer'			# prikaz prehravajici mp3 stopy
+speaker='mpv'			# prikaz prehravajici mp3 stopy
 log='/dev/null'				# soubor na chybove hlasky prehravace
 samples="$( dirname $0 )/zvuk"		# slozka se zvukovymi stopami
 
@@ -29,7 +29,7 @@ fi
 now=$( date +%s )
 number=$(( ($now - $first) / $step + 2 )) # (+1) v nultem case startuje uz 1. cislo, (+1) zaokrouhleni na budouci start
 
-[ -n "$2" ] && [ "$3" != '-x' -a -n "$2" -a $number -lt "$2" ] && number=$2	# defaultne omezena flexibilita casove osy
+[ -n "$2" ] && [ "$3" != '-x' -a $number -lt "$2" ] && number=$2	# defaultne omezena flexibilita casove osy
 [ $number -lt 1 ] && number=1	# odchytava negativni startovni cisla
 
 echo "Cas prvniho cisla:  $( date +%T -d @$first )"
