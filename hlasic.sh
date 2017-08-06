@@ -29,7 +29,7 @@ fi
 now=$( date +%s )
 number=$(( ($now - $first) / $step + 2 )) # (+1) v nultem case startuje uz 1. cislo, (+1) zaokrouhleni na budouci start
 
-[ "$3" != '-x' -a -n "$2" -a $number -lt "$2" ] && number=$2	# defaultne omezena flexibilita casove osy
+[ -n "$2" ] && [ "$3" != '-x' -a -n "$2" -a $number -lt "$2" ] && number=$2	# defaultne omezena flexibilita casove osy
 [ $number -lt 1 ] && number=1	# odchytava negativni startovni cisla
 
 echo "Cas prvniho cisla:  $( date +%T -d @$first )"
