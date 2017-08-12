@@ -21,6 +21,13 @@ log='/dev/null'				# soubor na chybove hlasky prehravace
 samples="$( dirname $0 )/zvuk"		# slozka se zvukovymi stopami
 
 
+# error handler
+err(){
+    echo $* >&2
+    exit 1
+}
+
+
 if [ -n "$1" -a -n "$2" ]; then
 	number=$2
 	stime=$( date +%s -d "$1" )
@@ -68,6 +75,7 @@ play=$(( $first + ($number - 2) * $step ))
 now=$( date +%s )
 if [ $play -gt $now ]; then
 	playlist=$( compose $(( $number - 1 )) )
+	[ $? -gt 0 ] && err 'Nasledujici cislo je vetsi nez 999'
 	sleep $(( $play - $now ))
 	cmd $samples/pripravit.mp3 $playlist
 fi
@@ -77,6 +85,7 @@ while true; do
 	next=$(( $first + ($number - 1) * $step ))
 	play=$(( $next - $tts ))
 	playlist=$( compose $number )
+	[ $? -gt 0 ] && err 'Nasledujici cislo je vetsi nez 999'
 	now=$( date +%s )
 	[ $now -lt $play ] && sleep $(( $play - $now ))
 	cmd $samples/start.mp3 $playlist
